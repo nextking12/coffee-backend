@@ -19,5 +19,5 @@ public interface CoffeeRepository extends JpaRepository<CoffeeEntity, Long> {
     List<CoffeeEntity> findAllByOrigin(String origin);
 
 
-
+    boolean existsByName(String name);
 }

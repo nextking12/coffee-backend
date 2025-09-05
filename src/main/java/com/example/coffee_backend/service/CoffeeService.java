@@ -37,4 +37,11 @@ public class CoffeeService {
     public Optional<CoffeeEntity> findByName(String name) {
         return coffeeRepository.findByName(name);
     }
+
+    public CoffeeEntity createCoffee(CoffeeEntity coffeeEntity) {
+        if (coffeeRepository.existsByName(coffeeEntity.getName())) {
+            throw new RuntimeException("Coffee with name '" + coffeeEntity.getName() + "' already exists");
+        }
+        return coffeeRepository.save(coffeeEntity);
+    }
 }
