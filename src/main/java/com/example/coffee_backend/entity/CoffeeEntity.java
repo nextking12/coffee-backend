@@ -1,4 +1,4 @@
-package com.example.coffee_backend.model;
+package com.example.coffee_backend.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -27,7 +27,7 @@ public class CoffeeEntity {
 
     @NotBlank(message = "Grind size is required")
     @Size(max = 50, message = "Grind size must be less than 50 characters")
-    private String grindSize;
+    private int grindSize;
 
     @Positive(message = "Weight must be positive")
     private Float weightInGrams;
@@ -35,7 +35,7 @@ public class CoffeeEntity {
     // Constructors
     public CoffeeEntity() {}
 
-    public CoffeeEntity(String name, String type, String origin, String grindSize, Float weightInGrams) {
+    public CoffeeEntity(String name, String type, String origin, int grindSize, Float weightInGrams) {
         this.name = name;
         this.type = type;
         this.origin = origin;
@@ -55,8 +55,8 @@ public class CoffeeEntity {
     public String getOrigin() { return origin; }
     public void setOrigin(String origin) { this.origin = origin; }
 
-    public String getGrindSize() { return grindSize; }
-    public void setGrindSize(String grindSize) { this.grindSize = grindSize; }
+    public int getGrindSize() { return grindSize; }
+    public void setGrindSize(int grindSize) { this.grindSize = grindSize; }
 
     public Float getWeightInGrams() { return weightInGrams; }
     public void setWeightInGrams(Float weightInGrams) { this.weightInGrams = weightInGrams; }
