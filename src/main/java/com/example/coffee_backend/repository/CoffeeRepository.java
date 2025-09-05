@@ -1,4 +1,9 @@
 package com.example.coffee_backend.repository;
 
-public interface CoffeeRepository {
+import com.example.coffee_backend.model.CoffeeEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+public interface CoffeeRepository extends JpaRepository<CoffeeEntity, Long> {
+
 }
