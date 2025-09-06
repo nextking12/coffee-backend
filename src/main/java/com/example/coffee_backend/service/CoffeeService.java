@@ -2,7 +2,6 @@ package com.example.coffee_backend.service;
 
 import com.example.coffee_backend.entity.CoffeeEntity;
 import com.example.coffee_backend.repository.CoffeeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,5 +42,20 @@ public class CoffeeService {
             throw new RuntimeException("Coffee with name '" + coffeeEntity.getName() + "' already exists");
         }
         return coffeeRepository.save(coffeeEntity);
+    }
+    public Optional<CoffeeEntity> updateCoffee(String name, CoffeeEntity updatedCoffee, CoffeeEntity coffeeEntity) {
+        if (!coffeeRepository.existsByName(coffeeEntity.getName())) {
+            throw new RuntimeException("Coffee with name '" + coffeeEntity.getName() + "' doesn't exist");
+        }
+        return coffeeRepository.findByName(name)
+                .map(coffee -> {
+                    coffee.setName(updatedCoffee.getName());
+                    coffee.setOrigin(updatedCoffee.getOrigin());
+                    coffee.setType(updatedCoffee.getType());
+                    coffee.setGrindSize(updatedCoffee.getGrindSize());
+                    coffee.setWeightInGrams(updatedCoffee.getWeightInGrams());
+                    return coffeeRepository.save(coffee);
+                });
+
     }
 }
