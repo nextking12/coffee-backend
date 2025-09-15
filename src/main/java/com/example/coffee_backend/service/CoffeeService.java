@@ -12,7 +12,6 @@ public class CoffeeService {
 
     private final CoffeeRepository coffeeRepository;
 
-
     public CoffeeService(CoffeeRepository coffeeRepository) {
         this.coffeeRepository = coffeeRepository;
     }
@@ -29,7 +28,7 @@ public class CoffeeService {
         return coffeeRepository.findAllByType(type);
     }
 
-    public Optional<CoffeeEntity>findById(Long id) {
+    public Optional<CoffeeEntity> findById(Long id) {
         return coffeeRepository.findById(id);
     }
 
@@ -43,19 +42,26 @@ public class CoffeeService {
         }
         return coffeeRepository.save(coffeeEntity);
     }
-    public Optional<CoffeeEntity> updateCoffee(String name, CoffeeEntity updatedCoffee, CoffeeEntity coffeeEntity) {
-        if (!coffeeRepository.existsByName(coffeeEntity.getName())) {
-            throw new RuntimeException("Coffee with name '" + coffeeEntity.getName() + "' doesn't exist");
-        }
-        return coffeeRepository.findByName(name)
-                .map(coffee -> {
-                    coffee.setName(updatedCoffee.getName());
-                    coffee.setOrigin(updatedCoffee.getOrigin());
-                    coffee.setType(updatedCoffee.getType());
-                    coffee.setGrindSize(updatedCoffee.getGrindSize());
-                    coffee.setWeightInGrams(updatedCoffee.getWeightInGrams());
-                    return coffeeRepository.save(coffee);
-                });
 
+    public CoffeeEntity updateCoffee(String name, CoffeeEntity coffeeEntity) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateCoffee'");
     }
+
+    /*
+     * if (!coffeeRepository.existsByName(coffeeEntity.getName())) {
+     * throw new RuntimeException("Coffee with name '" + coffeeEntity.getName() +
+     * "' doesn't exist");
+     * }
+     * return coffeeRepository.findByName(name)
+     * .map(coffee -> {
+     * coffee.setName(updatedCoffee.getName());
+     * coffee.setOrigin(updatedCoffee.getOrigin());
+     * coffee.setType(updatedCoffee.getType());
+     * coffee.setGrindSize(updatedCoffee.getGrindSize());
+     * coffee.setWeightInGrams(updatedCoffee.getWeightInGrams());
+     * return coffeeRepository.save(coffee);
+     * });
+     */
+
 }
