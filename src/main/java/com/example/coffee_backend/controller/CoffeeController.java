@@ -53,4 +53,16 @@ public class CoffeeController {
             .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/search/{origin}")
+    public ResponseEntity <List<CoffeeEntity>> getCoffeeByOrigin(@PathVariable String origin) {
+        List<CoffeeEntity> coffees = coffeeService.findAllByOrigin(origin);
+        return ResponseEntity.ok(coffees);
+    }
+
+    @GetMapping("/search/{type}")
+    public ResponseEntity<List<CoffeeEntity>> getCoffeeByType(@PathVariable String type) {
+        List<CoffeeEntity> coffees = coffeeService.findAllByType(type);
+        return ResponseEntity.ok(coffees);
+    }
+
 }
