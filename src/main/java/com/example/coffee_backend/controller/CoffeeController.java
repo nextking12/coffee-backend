@@ -1,18 +1,15 @@
 package com.example.coffee_backend.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.coffee_backend.entity.CoffeeEntity;
 import com.example.coffee_backend.service.CoffeeService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -35,14 +32,25 @@ public class CoffeeController {
     }
 
     @PutMapping("update/{name}")
-    public ResponseEntity<CoffeeEntity> updateCoffee(@PathVariable String name, @RequestBody CoffeeEntity coffeeEntity) {
+    public ResponseEntity<Optional<CoffeeEntity>> updateCoffee(@PathVariable String name, @RequestBody CoffeeEntity coffeeEntity) {
         try {
-            CoffeeEntity updatedCoffeeEntity = coffeeService.updateCoffee(name, coffeeEntity);
+            Optional<CoffeeEntity> updatedCoffeeEntity = coffeeService.updateCoffee(name, coffeeEntity);
             return new ResponseEntity<>(updatedCoffeeEntity, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         
     }
-    
+    @GetMapping("/")
+    public List<CoffeeEntity> getAllCoffees() {
+        return coffeeService.findAll();
+    }
+
+    @GetMapping("/search/{name}")
+    public ResponseEntity<CoffeeEntity> getCoffeeByName(@PathVariable String name) {
+        return coffeeService.findByName(name)
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
+    }
+
 }

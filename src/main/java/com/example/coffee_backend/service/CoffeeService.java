@@ -43,25 +43,20 @@ public class CoffeeService {
         return coffeeRepository.save(coffeeEntity);
     }
 
-    public CoffeeEntity updateCoffee(String name, CoffeeEntity coffeeEntity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateCoffee'");
+    public Optional<CoffeeEntity> updateCoffee(String name, CoffeeEntity coffeeEntity) {
+        Optional<CoffeeEntity> existingCoffee = coffeeRepository.findByName(name);
+        if (existingCoffee.isEmpty()) {
+            throw new RuntimeException("Coffee with name '" + name + "' doesn't exist");
+        }
+
+        CoffeeEntity coffee = existingCoffee.get();
+        coffee.setName(coffeeEntity.getName());
+        coffee.setOrigin(coffeeEntity.getOrigin());
+        coffee.setType(coffeeEntity.getType());
+        coffee.setGrindSize(coffeeEntity.getGrindSize());
+        coffee.setWeightInGrams(coffeeEntity.getWeightInGrams());
+
+        return Optional.of(coffeeRepository.save(coffee));
     }
 
-    /*
-     * if (!coffeeRepository.existsByName(coffeeEntity.getName())) {
-     * throw new RuntimeException("Coffee with name '" + coffeeEntity.getName() +
-     * "' doesn't exist");
-     * }
-     * return coffeeRepository.findByName(name)
-     * .map(coffee -> {
-     * coffee.setName(updatedCoffee.getName());
-     * coffee.setOrigin(updatedCoffee.getOrigin());
-     * coffee.setType(updatedCoffee.getType());
-     * coffee.setGrindSize(updatedCoffee.getGrindSize());
-     * coffee.setWeightInGrams(updatedCoffee.getWeightInGrams());
-     * return coffeeRepository.save(coffee);
-     * });
-     */
-
-}
+};
