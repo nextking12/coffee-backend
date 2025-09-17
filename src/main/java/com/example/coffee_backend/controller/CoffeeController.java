@@ -65,4 +65,13 @@ public class CoffeeController {
         return ResponseEntity.ok(coffees);
     }
 
+    @DeleteMapping("/delete/{name}")
+    public ResponseEntity<Void> deleteCoffee(@PathVariable String name) {
+        coffeeService.deleteCoffee(name);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
+
+
 }

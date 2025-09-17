@@ -59,4 +59,13 @@ public class CoffeeService {
         return Optional.of(coffeeRepository.save(coffee));
     }
 
+    public void deleteCoffee(String name) {
+        Optional<CoffeeEntity> coffee = coffeeRepository.findByName(name);
+        if (coffee.isEmpty()) {
+            throw new RuntimeException("Coffee with name '" + name + "' doesn't exist");
+
+        }
+        coffeeRepository.delete(coffee.get());
+    }
+
 };
