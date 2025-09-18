@@ -71,7 +71,4 @@ public class CoffeeController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-
-
-
 }
