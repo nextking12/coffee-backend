@@ -23,12 +23,11 @@ public class CoffeeController {
     }
 
 
-
     @PostMapping("/")
-    public ResponseEntity<CoffeeEntity>createCoffeeEntry(@RequestBody CoffeeEntity coffeeEntity) {
+    public ResponseEntity<CoffeeEntity> createCoffeeEntry(@RequestBody CoffeeEntity coffeeEntity) {
         CoffeeEntity createdCoffeeEntity = coffeeService.createCoffee(coffeeEntity);
         return new ResponseEntity<>(createdCoffeeEntity, HttpStatus.CREATED);
-        
+
     }
 
     @PutMapping("update/name/{name}")
