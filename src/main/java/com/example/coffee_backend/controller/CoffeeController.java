@@ -31,7 +31,7 @@ public class CoffeeController {
         
     }
 
-    @PutMapping("update/{name}")
+    @PutMapping("update/name/{name}")
     public ResponseEntity<Optional<CoffeeEntity>> updateCoffee(@PathVariable String name, @RequestBody CoffeeEntity coffeeEntity) {
         try {
             Optional<CoffeeEntity> updatedCoffeeEntity = coffeeService.updateCoffee(name, coffeeEntity);
@@ -46,26 +46,26 @@ public class CoffeeController {
         return coffeeService.findAll();
     }
 
-    @GetMapping("/search/{name}")
+    @GetMapping("/search/name/{name}")
     public ResponseEntity<CoffeeEntity> getCoffeeByName(@PathVariable String name) {
         return coffeeService.findByName(name)
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/search/{origin}")
+    @GetMapping("/search/origin/{origin}")
     public ResponseEntity <List<CoffeeEntity>> getCoffeeByOrigin(@PathVariable String origin) {
         List<CoffeeEntity> coffees = coffeeService.findAllByOrigin(origin);
         return ResponseEntity.ok(coffees);
     }
 
-    @GetMapping("/search/{type}")
+    @GetMapping("/search/type/{type}")
     public ResponseEntity<List<CoffeeEntity>> getCoffeeByType(@PathVariable String type) {
         List<CoffeeEntity> coffees = coffeeService.findAllByType(type);
         return ResponseEntity.ok(coffees);
     }
 
-    @DeleteMapping("/delete/{name}")
+    @DeleteMapping("/delete/name/{name}")
     public ResponseEntity<Void> deleteCoffee(@PathVariable String name) {
         coffeeService.deleteCoffee(name);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

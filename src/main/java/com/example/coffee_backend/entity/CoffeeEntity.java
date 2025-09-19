@@ -1,9 +1,7 @@
 package com.example.coffee_backend.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "espresso_stats")
@@ -25,8 +23,8 @@ public class CoffeeEntity {
     @Size(max = 50, message = "Coffee origin must be less than 50 characters")
     private String origin;
 
-    @NotBlank(message = "Grind size is required")
-    @Size(max = 50, message = "Grind size must be less than 50 characters")
+    @Min(value = 1, message = "Grind size must be at least 1")
+    @Max(value = 10, message = "Grind size must be at most 10")
     private int grindSize;
 
     @Positive(message = "Weight must be positive")
