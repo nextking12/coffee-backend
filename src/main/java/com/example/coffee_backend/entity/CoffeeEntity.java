@@ -23,6 +23,7 @@ public class CoffeeEntity {
     @Size(max = 50, message = "Coffee origin must be less than 50 characters")
     private String origin;
 
+    
     @Min(value = 1, message = "Grind size must be at least 1")
     @Max(value = 10, message = "Grind size must be at most 10")
     private int grindSize;
